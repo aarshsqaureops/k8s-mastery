@@ -34,10 +34,10 @@ stages{
           docker build -t frontapp .
           docker tag frontapp $Image_Repo/frontapp:latest-${BUILD_NUMBER}
           docker push $Image_Repo/frontapp:latest-${BUILD_NUMBER}
-          cd ../sa-logic/
-          docker build -t logicapp .
-          docker tag logicapp $Image_Repo/logicapp:latest-${BUILD_NUMBER}
-          docker push $Image_Repo/logicapp:latest-${BUILD_NUMBER}
+          #cd ../sa-logic/
+          #docker build -t logicapp .
+          #docker tag logicapp $Image_Repo/logicapp:latest-${BUILD_NUMBER}
+          #docker push $Image_Repo/logicapp:latest-${BUILD_NUMBER}
           cd ../sa-webapp/
           docker build -t webapp .
           docker tag webapp $Image_Repo/webapp:latest-${BUILD_NUMBER}
