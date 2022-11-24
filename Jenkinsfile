@@ -33,15 +33,15 @@ stages{
           cd sa-frontend
           docker build -t frontapp .
           docker tag frontapp aarshsquareops/frontapp:latest-${BUILD_NUMBER}
-          docker push $Image_Repo/frontapp:latest-${BUILD_NUMBER}
+          docker push aarshsquareops/frontapp:latest-${BUILD_NUMBER}
           cd ../sa-logic/
           docker build -t logicapp .
           docker tag logicapp aarshsquareops/logicapp:latest-${BUILD_NUMBER}
-          docker push $Image_Repo/logicapp:latest-${BUILD_NUMBER}
+          docker push aarshsquareops/logicapp:latest-${BUILD_NUMBER}
           #cd ../sa-webapp/
           #docker build -t webapp .
           #docker tag webapp aarshsquareops/webapp:latest-${BUILD_NUMBER}
-          #docker push $Image_Repo/webapp:latest-${BUILD_NUMBER}
+          #docker push aarshsquareops/webapp:latest-${BUILD_NUMBER}
           '''
         }
       //}
