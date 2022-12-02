@@ -2,7 +2,6 @@ FROM maven AS builder
 COPY . /sa-webapp
 WORKDIR /sa-webapp
 RUN mvn install
-#COPY src /sa-webapp/src
 
 ENV SA_LOGIC_API_URL http://localhost:5000
 
