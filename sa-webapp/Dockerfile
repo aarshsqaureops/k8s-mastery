@@ -1,5 +1,6 @@
 FROM maven AS builder
 COPY pom.xml /sa-webapp
+RUN cd k8s-mastery/sa-webapp/
 RUN mvn install
 #RUN mvn -f /sa-webapp/pom.xml clean package
 COPY src /sa-webapp/src
