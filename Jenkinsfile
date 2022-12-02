@@ -49,10 +49,10 @@ pipeline {
           docker build -t logicapp .
           docker tag logicapp aarshsquareops/logicapp-test:latest-${BUILD_NUMBER}
           docker push aarshsquareops/logicapp-test:latest-${BUILD_NUMBER}
-          #cd ../sa-webapp/
-          #docker build -t webapp .
-          #docker tag webapp aarshsquareops/webapp-test:latest-${BUILD_NUMBER}
-          #docker push aarshsquareops/webapp-test:latest-${BUILD_NUMBER}
+          cd ../sa-webapp/
+          docker build -t webapp .
+          docker tag webapp aarshsquareops/webapp-test:latest-${BUILD_NUMBER}
+          docker push aarshsquareops/webapp-test:latest-${BUILD_NUMBER}
           '''
         }
         }
