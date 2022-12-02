@@ -1,52 +1,62 @@
-pipeline{
-agent any
-  environment{
-    //Image_Repo="aarshsquareops"
-    Branch="master"
-    //Docker_Cred=credentials('dockerhub')
-    //Github_Cred=credentials('github')
-  }
-stages{
-  stage('Go to repo'){
-    steps{
-      //container('dind'){ 
-        script{
-          echo "take code from github"
-          git branch: 'master',
-                credentialsId: 'github',
-                url: 'https://github.com/aarshsqaureops/k8s-mastery.git'
-           //sh  '''
-             // git clone -b $Branch https://github.com/aarshsquareops/k8s-mastery.git
-             //'''
-             echo "Branch copied"
-        }
-      //}
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: maven
+            image: maven:alpine
+            command:
+            - cat
+            tty: true
+          - name: docker
+            image: docker:latest
+            command:
+            - cat
+            tty: true
+            volumeMounts:
+             - mountPath: /var/run/docker.sock
+               name: docker-sock
+          volumes:
+          - name: docker-sock
+            hostPath:
+              path: /var/run/docker.sock
+        '''
     }
-  } 
-  stage('Build Image and push to dockerhub'){
-    steps{
-      //container('docker'){
-        script{
+  }
+  stages {
+    stage('Clone') {
+      steps {
+        container('maven') {
+          git branch: 'master', changelog: false, poll: false, url: 'https://github.com/aarshsquareops/k8s-mastery.git'
+        }
+      }
+    }
+	stage('Build-Docker-Image') {
+      steps {
+        container('docker') {
+		  script{
           echo "Test code from github"
-          sh  ''' 
+          sh  '''
           echo "dckr_pat_gllAO-xQXrEgBUchziw0wXcxHoY"| docker login --username aarshsquareops --password-stdin
           cd sa-frontend
           docker build -t frontapp .
-          docker tag frontapp aarshsquareops/frontapp:latest-${BUILD_NUMBER}
-          docker push aarshsquareops/frontapp:latest-${BUILD_NUMBER}
+          docker tag frontapp kunjan134/frontapp-test:latest-${BUILD_NUMBER}
+          docker push kunjan134/frontapp-test:latest-${BUILD_NUMBER}
           cd ../sa-logic/
           docker build -t logicapp .
-          docker tag logicapp aarshsquareops/logicapp:latest-${BUILD_NUMBER}
-          docker push aarshsquareops/logicapp:latest-${BUILD_NUMBER}
+          docker tag logicapp kunjan134/logicapp-test:latest-${BUILD_NUMBER}
+          docker push kunjan134/logicapp-test:latest-${BUILD_NUMBER}
           #cd ../sa-webapp/
           #docker build -t webapp .
-          #docker tag webapp aarshsquareops/webapp:latest-${BUILD_NUMBER}
-          #docker push aarshsquareops/webapp:latest-${BUILD_NUMBER}
+          #docker tag webapp kunjan134/webapp-test:latest-${BUILD_NUMBER}
+          #docker push kunjan134/webapp-test:latest-${BUILD_NUMBER}
           '''
         }
-      //}
+        }
+      }
     }
-  }
-  
   }
   }
