@@ -30,7 +30,7 @@ pipeline {
     stage('Clone') {
       steps {
         container('maven') {
-          git branch: 'master', changelog: false, poll: false, url: 'https://github.com/aarshsquareops/k8s-mastery.git'
+          git branch: 'master', changelog: false, poll: false, url: 'https://github.com/aarshsqaureops/k8s-mastery.git'
         }
       }
     }
