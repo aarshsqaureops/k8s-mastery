@@ -1,6 +1,5 @@
-FROM maven:3.5-jdk-8-alpine AS builder
+FROM maven AS builder
 COPY pom.xml /sa-webapp
-RUN cd sa-webapp/
 RUN mvn install
 #RUN mvn -f /sa-webapp/pom.xml clean package
 COPY src /sa-webapp/src
