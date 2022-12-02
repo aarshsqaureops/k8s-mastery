@@ -1,4 +1,6 @@
 FROM maven AS builder
+COPY . /sa-webapp
+WORKDIR /sa-webapp
 RUN mvn install
 #RUN mvn -f /sa-webapp/pom.xml clean package
 COPY src /sa-webapp/src
