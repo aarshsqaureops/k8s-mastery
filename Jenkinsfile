@@ -43,8 +43,10 @@ pipeline {
           echo "dckr_pat_gllAO-xQXrEgBUchziw0wXcxHoY"| docker login --username aarshsquareops --password-stdin
           cd sa-frontend
           docker build -t frontapp .
-          docker tag frontapp aarshsquareops/frontapp-test:latest-${BUILD_NUMBER}
-          docker push aarshsquareops/frontapp-test:latest-${BUILD_NUMBER}
+          docker tag frontapp aarshsquareops/frontapp-test:latest
+          docker push aarshsquareops/frontapp-test:latest
+	  #docker tag frontapp aarshsquareops/frontapp-test:latest-${BUILD_NUMBER}
+          #docker push aarshsquareops/frontapp-test:latest-${BUILD_NUMBER}
           cd ../sa-logic/
           docker build -t logicapp .
           docker tag logicapp aarshsquareops/logicapp-test:latest-${BUILD_NUMBER}
