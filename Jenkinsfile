@@ -43,22 +43,16 @@ pipeline {
           echo "dckr_pat_gllAO-xQXrEgBUchziw0wXcxHoY"| docker login --username aarshsquareops --password-stdin
           cd sa-frontend
           docker build -t frontapp .
-          docker tag frontapp aarshsquareops/frontapp-test:latest
-          docker push aarshsquareops/frontapp-test:latest
-	  #docker tag frontapp aarshsquareops/frontapp-test:latest-${BUILD_NUMBER}
-          #docker push aarshsquareops/frontapp-test:latest-${BUILD_NUMBER}
+	  docker tag frontapp aarshsquareops/frontapp-test:latest-${BUILD_NUMBER}
+          docker push aarshsquareops/frontapp-test:latest-${BUILD_NUMBER}
           cd ../sa-logic/
           docker build -t logicapp .
-          docker tag logicapp aarshsquareops/logicapp-test:latest
-          docker push aarshsquareops/logicapp-test:latest
-	  #docker tag logicapp aarshsquareops/logicapp-test:latest-${BUILD_NUMBER}
-          #docker push aarshsquareops/logicapp-test:latest-${BUILD_NUMBER}
+	  docker tag logicapp aarshsquareops/logicapp-test:latest-${BUILD_NUMBER}
+          docker push aarshsquareops/logicapp-test:latest-${BUILD_NUMBER}
           cd ../sa-webapp/
           docker build -t webapp .
-          docker tag webapp aarshsquareops/webapp-test:latest
-          docker push aarshsquareops/webapp-test:latest
-	  #docker tag webapp aarshsquareops/webapp-test:latest-${BUILD_NUMBER}
-          #docker push aarshsquareops/webapp-test:latest-${BUILD_NUMBER}
+	  docker tag webapp aarshsquareops/webapp-test:latest-${BUILD_NUMBER}
+          docker push aarshsquareops/webapp-test:latest-${BUILD_NUMBER}
           '''
         }
         }
